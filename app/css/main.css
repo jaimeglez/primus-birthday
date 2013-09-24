@@ -1,0 +1,23 @@
+.user-form input {
+  height: 40px;
+  width: 300px;
+  border: 2px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.user-form .url {
+  width: 100%;
+}
+.btns{
+  text-align: center;
+}
+
+.input-group{
+  text-align: center;
+}
+
+.date input{
+  float: left;
+}

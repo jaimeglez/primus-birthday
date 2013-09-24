@@ -10,6 +10,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="app/vendor/css/bootstrap.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -18,21 +19,24 @@
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="app/vendor/css/carousel.css" rel="stylesheet">
-    <link href="app/vendor/css/datepicker.css" rel="stylesheet">
+    <!-- <link href="app/vendor/css/datepicker.css" rel="stylesheet"> -->
+    <!-- <link href="app/vendor/css/carousel.css" rel="stylesheet"> -->
+    <link href="app/css/main.css" rel="stylesheet">
     <script src="app/vendor/js/jquery.js"></script>
     <script src="app/vendor/js/bootstrap.min.js"></script>
     <script src='app/vendor/js/angular.min.js'></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
 
     <script src="app/vendor/js/holder.js"></script>
-    <script src="app/vendor/js/bootstrap-datepicker.js"></script>
+    <!-- <script src="app/vendor/js/bootstrap-datepicker.js"></script> -->
 
     <script src='app/vendor/js/cloudAPI.js'></script>
+    <script src="app/js/main.js"></script>
     <script src="app/js/userController.js"></script>
   </head>
 <!-- NAVBAR
 ================================================== -->
-  <body ng-app>
+  <body ng-app="plunker">
     <div class="navbar-wrapper">
       <div class="container">
 
@@ -70,53 +74,6 @@
     </div>
 
 
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-large btn-primary" href="#">Sign up today</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Second slide" alt="Second slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Third slide" alt="Third slide">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>One more for good measure.</h1>
-              <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-              <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div><!-- /.carousel -->
-
-
-
     <!-- Marketing messaging and featurettes
     ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -125,18 +82,25 @@
 
         <div class="row">
 
-          <div class="col-md-4">
-            <form >
+          <div class="col-md-12">
+            <h2>Insert a new person birthday to the agenda</h2>
+            <form class="form-inline user-form">
               <section class='input-group input-group-sm'>
-                <input class='form-control' ng-model='firstname' placeholder='First name'/>
-                <input class='form-control' ng-model='lastname' placeholder='Last name'/>
-                <input class='form-control' ng-model='birthday' placeholder='Birthday'/>
-                <input class='form-control' ng-model='image' placeholder='Url image'/>
+                <input ng-model='firstname' placeholder='First name'/>
+                <input ng-model='lastname' placeholder='Last name'/>
+
+                <!-- <calendar algo='xxx'></calendar> -->
+
+                <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+                <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+
+                <input ng-model='image' placeholder='Url image'class="url"/>
               </section>
 
-              <section>
-                <a class="btn btn-primary btn-lg" ng-click='addUser()'>Insert birthday</a>
-                <a class="btn btn-primary btn-lg" ng-click='refreshList()'>List all</a>
+              <section class="btns">
+                <a class="btn btn-default" ng-click='addUser()'>Insert birthday</a>
+                <a class="btn btn-default" ng-click='refreshList()'>List all</a>
+                <a class="btn btn-default" ng-click='selectBirthdays()'>List actual month birthdays</a>
               </section>
 
               <section ng-show='firstname || lastname'>
