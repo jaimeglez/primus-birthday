@@ -36,6 +36,11 @@ body{
   left: 0;
   z-index: -1;
 }
+@media (min-width: 1024px){
+  .bg-fixed{
+    background-size: 100% auto;
+  }
+}
 
 #intro{
   min-height: 400px;
