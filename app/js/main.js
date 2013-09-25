@@ -1,6 +1,2 @@
-$(function(){
-
-    // $('#dp3').datepicker();
-
-});
+var plucker = angular.module('plunker', ['ui.bootstrap']);
 

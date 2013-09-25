@@ -1,5 +1,3 @@
-var plucker = angular.module('plunker', ['ui.bootstrap']);
-
 function userController($scope, $timeout){
 
     //set calendar in the 80's 
@@ -17,14 +15,17 @@ function userController($scope, $timeout){
         });
     });
 
+    //set criteria in order to filter the array of users
     $scope.filterbyMonth = function(){
         $scope.criteria = { month: actualMonth};
     };
 
+    //reset the criteria in order to get all records
     $scope.listAll = function(){
         $scope.criteria = '';
     };
 
+    //filter with the previous criteria
     $scope.criteriaMatch = function( user ) {
             var birthdayMonth = new Date(user.birthday).getMonth();
             if ($scope.criteria){
@@ -63,20 +64,3 @@ function userController($scope, $timeout){
     };
 
 }
-
-
-// plucker.directive('calendar', function(){
-
-//     return{
-//        restrict: 'E',
-//        replace: true,
-//        template: '<h3>My directive</h3>'
-
-//        controller: function(){},
-
-//        compile: function($attr){}
-
-//        link: function(){},
-//     };
-
-// });
