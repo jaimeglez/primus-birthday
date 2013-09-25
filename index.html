@@ -10,7 +10,7 @@
 
 <!-- Bootstrap core CSS -->
 <link href="app/vendor/css/bootstrap.css" rel="stylesheet">
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<!-- <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
 
 <link href="app/css/main.css" rel="stylesheet">
 <script src="app/vendor/js/jquery.js"></script>
@@ -41,7 +41,88 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
+
+          <a data-toggle="modal" href="#myModal" class="doc btn btn-info btn-lg">How it works</a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h3 class="modal-title">The Primus API and how to integrate with angular.js</h3>
+                </div>
+
+                <div class="modal-body">
+                  <h4>Initializing</h4>
+                  <p>Initialize cloudAPI with the app key provided at primusapi</p>
+                  <pre> $scope.cAPI = new CloudAPI('APP_KEY'); </pre>
+                  <hr class="featurette-divider">
+
+                  <h4>Get records from the API</h4>
+                  <p>the select method from our API sending ( 'TABLE', { QUERY }, callback ) as arguments On the callback assign the array of data into $scope.users to populate users on the HTML (DOM)</p>
+                  <pre> $scope.cAPI.select('birthdays1', null, function(data){
+    $scope.$apply(function(){
+    $scope.users = data.array_;
+    });
+  });</pre>
+                  <hr class="featurette-divider">
+
+                  <h4>Add User/Birthday</h4>
+                  <p>$scope.addUser is going to be called by the ng-click='addUser()' placed on the 'Insert name' button</p>
+                  <p> $scope.firstname is binded with ng-model='firstname' on the html </p>
+                  <p> $scope.lastname is binded with ng-model='lastname' on the html </p>
+                  <p> Call the insert method from our API sending ( 'TABLE', { OBJECT }, callback ) as arguments </p>
+                  <pre> $scope.addUser = function(){
+    var newUser = {
+        firstname: $scope.firstname,
+        lastname: $scope.lastname,
+        birthday: $scope.birthday.toISOString(),
+        urlImage: $scope.image
+    };
+
+    $scope.cAPI.insert('birthdays1',newUser, function(){
+      console.log(arguments);
+      $scope.users.push(newUser);
+    });
+}; </pre>
+                  <hr class="featurette-divider">
+
+                  <h4>About search by actual month</h4>
+                  <p>$scope.criteriaMatch is going to be called by the filter:criteriaMatch placed on the 'ng-repat'</p>
+                  <p>$scope.criteria was defined with the actual month in order to use it on the criteriaMatch function</p>
+                  <p>$scope.lisAll is going to reset the criteria in order to don't filter the records</p>
+
+                  <pre> //set criteria in order to filter the array of users
+  $scope.filterbyMonth = function(){
+      $scope.criteria = { month: actualMonth};
+  };
+
+  //reset the criteria in order to get all records
+  $scope.listAll = function(){
+      $scope.criteria = '';
+  };
+
+  //filter with the previous criteria
+  $scope.criteriaMatch = function( user ) {
+          var birthdayMonth = new Date(user.birthday).getMonth();
+          if ($scope.criteria){
+              if (birthdayMonth === $scope.criteria.month)
+                  { return user; }
+          }
+          else { return user; }
+    }; </pre>
+                  
+
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
         </ul>
       </div>
     </div>
@@ -49,10 +130,10 @@
 
   <div class="container-fluid" id="intro">	
     <div class="container">	
-      <div class="row span6 center">
+      <div class="row col-md-6 center">
         <h1>Add your employee and its birthday</h1>
         <p>If you have issues to remember the birthday of your employees/partners, we have your solution. Just have to add the user and you could be able to list the actual month birthdays. Try it!  </p>
-        <a href="#add-user" class="btn btn-large">Add User</a>
+        <a href="#add-user" class="btn btn-lg btn-primary">Add User</a>
       </div>	
     </div>
   </div>
@@ -71,7 +152,7 @@
               <input ng-model='lastname' placeholder='Last name'/>
 
               <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
-              <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+              <button class="btn cal" ng-click="open()"><i class="icon-calendar"></i></button>
 
               <input ng-model='image' placeholder='Url image'class="url"/>
             </section>

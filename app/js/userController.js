@@ -9,7 +9,6 @@ function userController($scope, $timeout){
 
     //make the query and request to the API
     $scope.cAPI.select('birthdays1', null, function(data){
-        $scope.originalData = data.array_;
         $scope.$apply(function(){
         $scope.users = data.array_;
         });
