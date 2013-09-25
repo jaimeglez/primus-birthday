@@ -97,8 +97,11 @@ body{
   z-index: auto;
 } 
 
-.doc{
+.git{
+  text-align: center;
 }
+
+
 /* css extra */
 
 
