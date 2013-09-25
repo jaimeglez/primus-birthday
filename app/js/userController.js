@@ -4,16 +4,35 @@ function userController($scope, $timeout){
 
     //set calendar in the 80's 
     $scope.birthday = new Date(1988,0,1);
+    var actualMonth = new Date().getMonth();
 
     //Initialize CloudAPI
-    $scope.cAPI = new CloudAPI('filublfqmse');
+    $scope.cAPI = new CloudAPI('bierdhrdunq');
 
-    $scope.cAPI.select('firstapp', null, function(data){
-        $scope.orginalData = data.array_;
+    //make the query and request to the API
+    $scope.cAPI.select('birthdays1', null, function(data){
+        $scope.originalData = data.array_;
         $scope.$apply(function(){
         $scope.users = data.array_;
         });
     });
+
+    $scope.filterbyMonth = function(){
+        $scope.criteria = { month: actualMonth};
+    };
+
+    $scope.listAll = function(){
+        $scope.criteria = '';
+    };
+
+    $scope.criteriaMatch = function( user ) {
+            var birthdayMonth = new Date(user.birthday).getMonth();
+            if ($scope.criteria){
+                if (birthdayMonth === $scope.criteria.month)
+                    { return user; }
+            }
+            else { return user; }
+    };
 
     //Add a new user
     $scope.addUser = function(){
@@ -25,7 +44,7 @@ function userController($scope, $timeout){
             urlImage: $scope.image
         };
 
-        $scope.cAPI.insert('firstapp',newUser, function(){
+        $scope.cAPI.insert('birthdays1',newUser, function(){
           console.log(arguments);
           $scope.users.push(newUser);
         });

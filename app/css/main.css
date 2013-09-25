@@ -1,3 +1,7 @@
+body{
+  width: 100% !important;
+  padding: 0 !important;
+}
 .user-form input {
   height: 40px;
   width: 300px;
@@ -20,4 +24,52 @@
 
 .date input{
   float: left;
+}
+
+.bg-fixed{
+  background: #000 url('../images/happy-birthday-cupcakes.jpg') no-repeat;
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#intro{
+  min-height: 400px;
+  color: white;
+}
+
+#intro .span6.center{
+  margin: 30px auto;
+  float: none;
+}
+#intro .span6.center .btn{
+  text-align: center;
+}
+
+#add-user{
+  background: white;
+}
+
+.container > .navbar-header, .container > .navbar-collapse{
+  margin: 0;
+}
+
+#birthdays{
+  background: black;
+  color: white;
+}
+#birthdays h1{
+  text-align: center;
+}
+
+#foot{
+  background: rgba(0,0,0,0.8);
+}
+
+#foot a{
+  color: #ccc;
 }

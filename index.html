@@ -1,126 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Birthday Agenda">
-    <meta name="author" content="Jaime Gonzalez">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Birthday Agenda">
+<meta name="author" content="Jaime Gonzalez">
 
-    <title>Birthday Agenda using PrimusAPI</title>
+<title>Birthday Agenda using PrimusAPI</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="app/vendor/css/bootstrap.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="app/vendor/css/bootstrap.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="app/vendor/js/html5shiv.js"></script>
-      <script src="app/vendor/js/respond.min.js"></script>
-    <![endif]-->
+<link href="app/css/main.css" rel="stylesheet">
+<script src="app/vendor/js/jquery.js"></script>
+<script src="app/vendor/js/bootstrap.min.js"></script>
+<script src='app/vendor/js/angular.min.js'></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+<script src="app/vendor/js/holder.js"></script>
 
-    <!-- Custom styles for this template -->
-    <!-- <link href="app/vendor/css/datepicker.css" rel="stylesheet"> -->
-    <!-- <link href="app/vendor/css/carousel.css" rel="stylesheet"> -->
-    <link href="app/css/main.css" rel="stylesheet">
-    <script src="app/vendor/js/jquery.js"></script>
-    <script src="app/vendor/js/bootstrap.min.js"></script>
-    <script src='app/vendor/js/angular.min.js'></script>
-    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+<script src='app/vendor/js/cloudAPI.js'></script>
+<script src="app/js/main.js"></script>
+<script src="app/js/userController.js"></script>
+</head>
 
-    <script src="app/vendor/js/holder.js"></script>
-    <!-- <script src="app/vendor/js/bootstrap-datepicker.js"></script> -->
+<body ng-app="plunker">
 
-    <script src='app/vendor/js/cloudAPI.js'></script>
-    <script src="app/js/main.js"></script>
-    <script src="app/js/userController.js"></script>
-  </head>
-<!-- NAVBAR
-================================================== -->
-  <body ng-app="plunker">
-    <div class="navbar-wrapper">
-      <div class="container">
+<div ng-controller="userController">
+  <div class="bg-fixed"></div>
+  <!-- NAVBAR
+        ================================================== -->
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Birthday Agenda</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-        <div class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Birthday Agenda</a>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Actions<b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
+  <div class="container-fluid" id="intro">	
+    <div class="container">	
+      <div class="row span6 center">
+        <h1>Add your employee and its birthday</h1>
+        <p>If you have issues to remember the birthday of your employees/partners, we have your solution. Just have to add the user and you could be able to list the actual month birthdays. Try it!  </p>
+        <a href="#add-user" class="btn btn-large">Add User</a>
+      </div>	
+    </div>
+  </div>
+
+
+  <div class="container-fluid" id="add-user">	
+    <div class="container marketing" >
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <h2>Insert a new person birthday to the agenda</h2>
+          <form class="form-inline user-form">
+            <section class='input-group input-group-sm'>
+              <input ng-model='firstname' placeholder='First name'/>
+              <input ng-model='lastname' placeholder='Last name'/>
+
+
+              <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+              <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+
+              <input ng-model='image' placeholder='Url image'class="url"/>
+            </section>
+
+            <section class="btns">
+              <a class="btn btn-default" ng-click='addUser()'>Insert birthday</a>
+              <a class="btn btn-default" ng-click='listAll()'>List all</a>
+              <a class="btn btn-default" ng-click='filterbyMonth()'>List actual month birthdays</a>
+            </section>
+
+            <section ng-show='firstname || lastname'>
+              <p>Building: {{lastname}} {{firstname}}</p>
+            </section>
+
+          </form>
         </div>
 
       </div>
+
     </div>
+  </div><!-- /#add-user -->
 
+  <!-- START THE Birthdays -->
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing" ng-controller="userController">
-
-        <div class="row">
-
-          <div class="col-md-12">
-            <h2>Insert a new person birthday to the agenda</h2>
-            <form class="form-inline user-form">
-              <section class='input-group input-group-sm'>
-                <input ng-model='firstname' placeholder='First name'/>
-                <input ng-model='lastname' placeholder='Last name'/>
-
-                <!-- <calendar algo='xxx'></calendar> -->
-
-                <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
-                <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
-
-                <input ng-model='image' placeholder='Url image'class="url"/>
-              </section>
-
-              <section class="btns">
-                <a class="btn btn-default" ng-click='addUser()'>Insert birthday</a>
-                <a class="btn btn-default" ng-click='refreshList()'>List all</a>
-                <a class="btn btn-default" ng-click='selectBirthdays()'>List actual month birthdays</a>
-              </section>
-
-              <section ng-show='firstname || lastname'>
-                <p>Building: {{lastname}} {{firstname}}</p>
-              </section>
-
-            </form>
-          </div>
-
-        </div>
-
-
-      <!-- START THE Birthdays -->
-
-      <hr class="featurette-divider">
-
-      <div ng-repeat='user in users'>
+  <div class="container-fluid" id="birthdays">	
+    <div class="container marketing" >
+      <h1>Birthday list</h1>
+      <div ng-repeat='user in users | filter:criteriaMatch'>
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading"> {{user.firstname}} {{user.lastname}} <span class="text-muted">{{user.birthday}}</span></h2>
+            <h2 class="featurette-heading"> {{user.firstname}} {{user.lastname}} <span class="text-muted">{{user.birthday | date:medium}}</span></h2>
             <p class="lead">Congratulations!</p>
           </div>
           <div class="col-md-5">
@@ -132,19 +116,22 @@
       </div>
 
 
+    </div>
+  </div><!-- /.container -->
 
+  <div class="container-fluid" id="foot">	
+    <div class="container marketing" >
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
+    </div>
+  </div>
 
-    </div><!-- /.container -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+  </div>
   </body>
 </html>
 
