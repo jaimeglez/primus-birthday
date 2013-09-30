@@ -4,8 +4,8 @@ function userController($scope, $timeout){
     $scope.birthday = new Date(1988,0,1);
     var actualMonth = new Date().getMonth();
 
-    //Initialize CloudAPI
-    $scope.cAPI = new CloudAPI('bierdhrdunq');
+    //Initialize corsAPI
+    $scope.cAPI = new corsAPI('bierdhrdunq');
 
     //make the query and request to the API
     $scope.cAPI.select('birthdays1', null, function(data){
