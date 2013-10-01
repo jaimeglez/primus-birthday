@@ -165,7 +165,7 @@
 
             <section class="btns">
               <a class="btn btn-default" ng-click='addUser()'>Insert birthday</a>
-              <a class="btn btn-default" ng-click='listAll()'>List all</a>
+              <a class="btn btn-default" ng-click='listAll()'>List all birthdays</a>
               <a class="btn btn-default" ng-click='filterbyMonth()'>List actual month birthdays</a>
             </section>
 
@@ -188,9 +188,10 @@
       <h1>Birthday list</h1>
       <div ng-repeat='user in users | filter:criteriaMatch'>
         <div class="row featurette">
-          <div class="col-md-7">
+          <div class="col-md-7" id="{{user._id}}">
             <h2 class="featurette-heading"> {{user.firstname}} {{user.lastname}} <span class="text-muted">{{user.birthday | date:medium}}</span></h2>
             <p class="lead">Congratulations!</p>
+            <button ng-click="delUser(user)" class="btn btn-danger">delete</button>
           </div>
           <div class="col-md-5">
             <img class="featurette-image img-responsive" ng-src="{{user.urlImage}}" alt="Generic placeholder image">

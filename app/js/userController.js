@@ -37,17 +37,31 @@ function userController($scope, $timeout){
     //Add a new user
     $scope.addUser = function(){
 
-        var newUser = {
+        $scope.newUser = {
             firstname: $scope.firstname,
             lastname: $scope.lastname,
             birthday: $scope.birthday.toISOString(),
             urlImage: $scope.image
         };
 
-        $scope.cAPI.insert('birthdays1',newUser, function(){
+
+        $scope.cAPI.insert('birthdays1',$scope.newUser, function(data){
+          $scope.newUser["_id"] = arguments[0]._id;
           console.log(arguments);
-          $scope.users.push(newUser);
         });
+
+        $scope.users.push($scope.newUser);
+    };
+
+    $scope.delUser = function(user){
+
+        var index=$scope.users.indexOf(user)
+        $scope.users.splice(index,1); 
+
+        $scope.cAPI.del('birthdays1', user._id, function(){
+          console.log(arguments);
+        });
+
     };
 
     //datepicker
