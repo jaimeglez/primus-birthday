@@ -83,8 +83,21 @@
 
     $scope.cAPI.insert('birthdays1',newUser, function(){
       console.log(arguments);
+      $scope.newUser["_id"] = arguments[0]._id;
       $scope.users.push(newUser);
     });
+}; </pre>
+                  <hr class="featurette-divider">
+
+                  <h4>Delete User/Birthday</h4>
+                  <p>$scope.delUser is going to be called by the ng-click='delUser()' placed on the 'Delete' button</p>
+                  <pre> $scope.delUser = function(){
+      var index=$scope.users.indexOf(user)
+      $scope.users.splice(index,1); 
+
+      $scope.cAPI.del('birthdays1', user._id, function(){
+        console.log(arguments);
+      });
 }; </pre>
                   <hr class="featurette-divider">
 
@@ -154,12 +167,13 @@
           <h2>Insert a new person birthday to the agenda</h2>
           <form class="form-inline user-form">
             <section class='input-group input-group-sm'>
-              <input ng-model='firstname' placeholder='First name'/>
+              <div class="sel-date">
+                <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
+                <button class="btn cal" ng-click="open()"><i class="icon-calendar"></i></button>
+              </div>
+
               <input ng-model='lastname' placeholder='Last name'/>
-
-              <input type="text" datepicker-popup="dd-MMMM-yyyy" ng-model="birthday" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" />
-              <button class="btn cal" ng-click="open()"><i class="icon-calendar"></i></button>
-
+              <input ng-model='firstname' placeholder='First name'/>
               <input ng-model='image' placeholder='Url image'class="url"/>
             </section>
 
@@ -168,6 +182,8 @@
               <a class="btn btn-default" ng-click='listAll()'>List all birthdays</a>
               <a class="btn btn-default" ng-click='filterbyMonth()'>List actual month birthdays</a>
             </section>
+
+            <a class="logo" href="http://tangosource.com"><img src="app/images/LOGO.png"/></a>
 
             <section ng-show='firstname || lastname'>
               <p>Building: {{lastname}} {{firstname}}</p>
